@@ -81,7 +81,7 @@ export const NextQuestion = createAsyncThunk("NextQuestion", async (arg, { getSt
         if (index < questions.questions.length) {
             return index
         } else {
-            console.log("go to setting page")
+            return "stop"
         }
 
 
@@ -130,7 +130,6 @@ export const questionsSlice = createSlice({
             let result = (((state.Score) / state.questions.length) * 100).toFixed(0)
 
             state.finalResult = result
-            return "megahed"
         },
         // ****************Register validation****************
         handleInputRegister: (state, { payload }) => {
@@ -355,14 +354,18 @@ export const questionsSlice = createSlice({
             // } else {
             //     state.lastQuestion = false
             // }
-            state.currentIndex = action.payload
-            state.isSelected = false
-            let finalResult = state.questions.length - action.payload
-            if (isNaN(finalResult)) {
-                state.lastQuestion = true
-            } else {
+            if (action.payload !== "stop") {
+                state.currentIndex = action.payload
+                console.log(action.payload)
+                state.isSelected = false
+                let finalGrade = state.questions.length - action.payload
+                console.log(action.payload)
+                console.log("finalGrade => ", state.questions.length, "-", action.payload, "=", finalGrade)
                 state.lastQuestion = false
+            } else {
+                state.lastQuestion = true
             }
+
         },
 
     }

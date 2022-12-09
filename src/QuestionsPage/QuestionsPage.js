@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { getanswer, Logic, NextQuestion } from "../Store/questionsSlice"
 import { UilAngleRightB } from '@iconscout/react-unicons'
+import {Link} from "react-router-dom"
 const QuestionsPage = () => {
 
     let navigate = useNavigate()
@@ -36,9 +37,10 @@ const QuestionsPage = () => {
                                     )
                                 })}
                             </div>
+                            <Link to="/endpage"> <div className="finishBTN"><button>Finish</button></div></Link>
 
                         </div>
-                        
+
                         <button disabled={!reduxData.isSelected} className={`nextBTN`} onClick={() => dispatch(NextQuestion())}><UilAngleRightB size="200" /></button>
                     </div>
                 )

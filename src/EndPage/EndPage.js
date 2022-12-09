@@ -15,7 +15,7 @@ const EndPage = () => {
     return (
         <div className="EndPage">
             <img src={lamp} alt="" />
-            {reduxData.finalResult < 60 ? <h1>Oops!! Your Score Is {reduxData.finalResult}% </h1> : <h1>Congratulations Osama! Your Score Is {reduxData.finalResult}% </h1>}
+            {reduxData.finalResult < 60 ? <h1>Oops {JSON.parse(localStorage.getItem("IEEE_user"))}!! Your Score Is {reduxData.finalResult}% </h1> : <h1>Congratulations Osama! Your Score Is {reduxData.finalResult}% </h1>}
             <Link to="/QuizInfo"><button>Play Again!</button></Link>
         </div>
     )
