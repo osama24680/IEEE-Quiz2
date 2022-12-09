@@ -6,7 +6,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import { getanswer, Logic, NextQuestion } from "../Store/questionsSlice"
 import { UilAngleRightB } from '@iconscout/react-unicons'
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+
 const QuestionsPage = () => {
 
     let navigate = useNavigate()
@@ -24,7 +26,11 @@ const QuestionsPage = () => {
         <>
             {
                 reduxData.loading ? <div className="loading_spin"><UilSpinnerAlt size="70" /> </div> : (
-                    <div className="QuestionsPage">
+                    <motion.div className="QuestionsPage"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                    >
                         <div className="QuestionsPage_logo">
                             <img src={lamp} alt="" />
                         </div>
@@ -42,7 +48,7 @@ const QuestionsPage = () => {
                         </div>
 
                         <button disabled={!reduxData.isSelected} className={`nextBTN`} onClick={() => dispatch(NextQuestion())}><UilAngleRightB size="200" /></button>
-                    </div>
+                    </motion.div>
                 )
             }
         </>

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getQuizSettings, getQuestions } from "../Store/questionsSlice"
 import { useNavigate } from "react-router-dom"
 import lamp from "../imgs/lamp.png"
+import { motion } from "framer-motion"
 
 const QuizInfo = () => {
 
@@ -24,7 +25,11 @@ const QuizInfo = () => {
         }
     }
     return (
-        <div className="quizInfo">
+        <motion.div className="quizInfo"
+            animate={{
+                scale: [1, 2, 1],
+            }}
+        >
             <div className="data">
                 <div className="categories">
                     <label htmlFor="category" >Pick A Topic</label>
@@ -70,7 +75,7 @@ const QuizInfo = () => {
 
             </div>
             <img src={lamp} alt="" />
-        </div>
+        </motion.div >
     )
 }
 
