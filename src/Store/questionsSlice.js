@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import joi from "joi"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const initialState = {
     questions: [],
     name: "osama megahed",
@@ -287,6 +290,7 @@ export const questionsSlice = createSlice({
         logout: (state, action) => {
             console.log("hello osama after logout successfully from store")
             localStorage.removeItem("IEEE_user")
+            toast("Refresh the page to get out");
         }
         // NextQuestion: (state, action) => {
         //     let allAnswers = document.getElementById("allAnswers")
