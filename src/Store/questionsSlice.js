@@ -21,7 +21,6 @@ const initialState = {
     finalResult: 0,
     // validation
     joiErrors: {},
-
     isLoading: false,
     formData: {},
     formDataSignIn: {},
@@ -31,6 +30,7 @@ const initialState = {
     allUsers: null,
     registeredEmail: "",
     registeredName: "",
+    wrongPassword:"",
 }
 
 // *************************get questions********************
@@ -75,7 +75,6 @@ export const NextQuestion = createAsyncThunk("NextQuestion", async (arg, { getSt
         })
 
         let index = questions.currentIndex
-        console.log(questions.currentIndex)
         index++;
 
         if (index < questions.questions.length) {
@@ -206,13 +205,11 @@ export const questionsSlice = createSlice({
                 if (foundEmail > 0) {
                     state.registeredEmail = "Existed email"
                     state.registeredName = ""
-                    console.log("Existed email")
                     state.successSignUp = false
 
                 } else if (foundName > 0) {
                     state.registeredName = "This name has already been taken"
                     state.registeredEmail = ""
-                    console.log("This name has already taken")
                     state.successSignUp = false
 
                 } else {
@@ -269,46 +266,27 @@ export const questionsSlice = createSlice({
                     state.registeredEmail = "Unregistered email go to register page"
                 } else {
                     for (let i = 0; i < Quiz_Users.length; i++) {
-                        if (state.formDataSignIn.email === Quiz_Users[i].email) {
+                        if (state.formDataSignIn.email === Quiz_Users[i].email && state.formDataSignIn.password === Quiz_Users[i].password) {
                             localStorage.setItem("IEEE_user", JSON.stringify(Quiz_Users[i].userName))
-                            console.log(Quiz_Users[i].userName)
                             localStorage.setItem("osooo", JSON.stringify("osooo"))
                             state.successSignIn = true
                             state.registeredEmail = ""
+                            state.wrongPassword = ""
                             state.isLoggedIn = true
 
                         } else {
                             state.registeredEmail = "Unregistered email go to register page"
+                            state.wrongPassword = "Wrong Password"
                         }
                     }
                 }
             }
             state.isLoading = false
         },
-
         logout: (state, action) => {
-            console.log("hello osama after logout successfully from store")
             localStorage.removeItem("IEEE_user")
             toast("Refresh the page to get out");
         }
-        // NextQuestion: (state, action) => {
-        //     let allAnswers = document.getElementById("allAnswers")
-        //     let BtnAllAnswers = allAnswers.getElementsByTagName("button")
-        //     Array.from(BtnAllAnswers).forEach(btn => {
-        //         return (
-        //             btn.style.color = "#fff",
-        //             btn.style.transform = "scale(1)",
-        //             btn.style.backgroundColor = "#3C55D7"
-        //         )
-        //     })
-
-        //     if (state.currentIndex < state.questions.length) {
-        //         state.currentIndex = state.currentIndex + 1
-        //         state.lastQuestion = false
-        //     } else if (state.currentIndex === state.questions.length) {
-        //         state.lastQuestion = true
-        //     }
-        // }
     },
 
     extraReducers: {
@@ -334,33 +312,10 @@ export const questionsSlice = createSlice({
         },
 
         [NextQuestion.fulfilled]: (state, action) => {
-            // if (action.payload < state.questions.length) {
-            //     state.currentIndex = action.payload + 1
-            //     state.lastQuestion = false
-            // } else if (action.payload === state.questions.length) {
-            //     state.lastQuestion = true
-            // }
 
-
-
-            // state.currentIndex = action.payload
-            // console.log(action.payload, " => ", state.questions.length)
-            // state.isSelected = false
-            // let finalResult = state.questions.length - action.payload
-            // console.log(finalResult)
-            // if (isNaN(finalResult)) {
-            //     state.lastQuestion = true
-            //     console.log(state.lastQuestion)
-            // } else {
-            //     state.lastQuestion = false
-            // }
             if (action.payload !== "stop") {
                 state.currentIndex = action.payload
-                console.log(action.payload)
                 state.isSelected = false
-                let finalGrade = state.questions.length - action.payload
-                console.log(action.payload)
-                console.log("finalGrade => ", state.questions.length, "-", action.payload, "=", finalGrade)
                 state.lastQuestion = false
             } else {
                 state.lastQuestion = true

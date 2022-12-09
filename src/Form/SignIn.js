@@ -25,7 +25,7 @@ const Register = () => {
                             <div>
                                 <label>Password</label>
                                 <input onChange={(e) => dispatch(handleInputSignIn(e))} type="password" name="password" placeholder='Enter Your Password' />
-                                <small className="inputError">{reduxData.joiErrors.password}</small>
+                                <small className="inputError">{reduxData.joiErrors.password || reduxData.wrongPassword}</small>
                             </div>
 
                             <button className="FormBtn">{reduxData.isLoading ? <UilSpinnerAlt color="blue" size="sm" /> : `Confirm`}</button>

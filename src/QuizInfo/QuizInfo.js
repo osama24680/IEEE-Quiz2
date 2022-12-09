@@ -11,7 +11,6 @@ const QuizInfo = () => {
     let navigate = useNavigate()
     let reduxData = useSelector(state => state.questions)
     let dispatch = useDispatch()
-
     const [isWrong, setIsWrong] = useState(false);
 
     const GoToQuestionsHere = () => {

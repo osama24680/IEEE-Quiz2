@@ -9,8 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Navbar = () => {
     let reduxData = useSelector(state => state.questions)
     let dispatch = useDispatch()
-    console.log(localStorage.getItem("IEEE_user"))
-
 
     return (
         <div className="Navbar">
@@ -26,9 +24,7 @@ const Navbar = () => {
                         <p><Link to="/Register">Register</Link></p>
                         
                     </>
-
                 )}
-
             </div>
             
         </div>
